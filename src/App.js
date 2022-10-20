@@ -5,18 +5,21 @@ import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
 import HabitsPage from "./pages/HabitsPage/HabitsPage";
 import TodayPage from "./pages/TodayPage/TodayPage";
 import HistoryPage from "./pages/HistoryPage/HistoryPage";
+import { UserProvider } from "./providers/UserData";
 
 export default function App() {
 	return (
-		<BrowserRouter>
+		<UserProvider>
 			<GlobalStyle />
-			<Routes>
-				<Route path="/" element={<LoginPage />} />
-				<Route path="/cadastro" element={<RegistrationPage />} />
-				<Route path="/habitos" element={<HabitsPage />} />
-				<Route path="/hoje" element={<TodayPage />} />
-				<Route path="/historico" element={<HistoryPage />} />
-			</Routes>
-		</BrowserRouter>
+			<BrowserRouter>
+				<Routes>
+					<Route path="/" element={<LoginPage />} />
+					<Route path="/cadastro" element={<RegistrationPage />} />
+					<Route path="/habitos" element={<HabitsPage />} />
+					<Route path="/hoje" element={<TodayPage />} />
+					<Route path="/historico" element={<HistoryPage />} />
+				</Routes>
+			</BrowserRouter>
+		</UserProvider>
 	);
 }

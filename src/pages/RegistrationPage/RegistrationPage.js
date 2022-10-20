@@ -2,30 +2,69 @@ import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../assets/images/logo.svg";
 import { accentColor } from "../../constants/colors";
 import styled from "styled-components";
+import { useState } from "react";
+import { BASE_URL } from "../../constants/urls";
+import axios from "axios";
 
 export default function RegistrationPage() {
 	const navigate = useNavigate();
+	const [registerForm, setResgisterForm] = useState({ email: "", name: "", image: "", password: "" });
 
 	function register(e) {
 		e.preventDefault();
-		navigate("/habitos");
+		axios
+			.post(`${BASE_URL}/auth/sign-up`, registerForm)
+			.then((res) => {
+				alert("Cadastro Realizado com Sucesso!");
+				navigate("/");
+			})
+			.catch((err) => console.log(err.response.data));
+	}
+
+	function changeFormData(e) {
+		const { name, value } = e.target;
+		setResgisterForm({ ...registerForm, [name]: value });
 	}
 
 	return (
 		<RegistrationPageContainer>
 			<img src={Logo} alt="Logo do Site TrackIt" />
 			<Form onSubmit={register}>
-				<label htmlFor="email" />
-				<input id="email" type="email" placeholder="Email" />
+			<input
+					required
+					name="email"
+					value={registerForm.email}
+					type="email"
+					placeholder="Email"
+					onChange={changeFormData}
+				/>
 
-				<label htmlFor="password" />
-				<input id="password" type="password" placeholder="Senha" />
+				<input
+					required
+					name="password"
+					value={registerForm.password}
+					type="password"
+					placeholder="Senha"
+					onChange={changeFormData}
+				/>
 
-				<label htmlFor="name" />
-				<input id="name" type="text" placeholder="Nome" />
+				<input
+					required
+					name="name"
+					value={registerForm.name}
+					type="text"
+					placeholder="Nome"
+					onChange={changeFormData}
+				/>
 
-				<label htmlFor="photo" />
-				<input id="photo" type="url" placeholder="Foto" />
+				<input
+					required
+					name="image"
+					value={registerForm.image}
+					type="url"
+					placeholder="Foto"
+					onChange={changeFormData}
+				/>
 
 				<button type="submit">Cadastrar</button>
 			</Form>

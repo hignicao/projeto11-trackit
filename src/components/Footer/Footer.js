@@ -6,7 +6,7 @@ import "react-circular-progressbar/dist/styles.css";
 import ProgressBar from "./ProgressBar";
 
 export default function Footer() {
-	const percentage = 0.5; //temporário
+	const percentage = 0.4; //temporário
 	return (
 		<FooterContainer>
 			<LinkText to={"/habitos"}>Hábitos</LinkText>
@@ -21,6 +21,7 @@ export default function Footer() {
 const FooterContainer = styled.div`
 	position: fixed;
 	bottom: 0;
+	left: 0;
 	width: 100%;
 	height: 70px;
 	background: #ffffff;

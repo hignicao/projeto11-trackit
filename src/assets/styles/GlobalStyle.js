@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import { textColor } from "../../constants/colors";
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -29,6 +30,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: 'Lexend Deca', sans-serif;
     line-height: 1;
+    color: ${textColor};
   }
   * {
     box-sizing: border-box;
