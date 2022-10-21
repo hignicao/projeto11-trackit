@@ -6,12 +6,13 @@ import { BASE_URL } from "../../constants/urls";
 import { useContext, useState } from "react";
 import axios from "axios";
 import { UserContext } from "../../providers/UserData";
-// import Forms from "../../components/Form/Forms";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 export default function LoginPage() {
-	const navigate = useNavigate();
 	const [loginForm, setLoginForm] = useState({ email: "", password: "" });
 	const { setUserData } = useContext(UserContext);
+	const navigate = useNavigate();
 
 	function login(e) {
 		e.preventDefault();
@@ -19,11 +20,21 @@ export default function LoginPage() {
 		axios
 			.post(`${BASE_URL}/auth/login`, loginForm)
 			.then((res) => {
-				console.log(res.data);
 				setUserData(res.data);
 				navigate("/habitos");
 			})
-			.catch((err) => console.log(err.response.data));
+			.catch((err) => {
+				toast.error("Erro ao fazer login, confira os dados e tente novamente!", {
+					position: "top-center",
+					autoClose: 3000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "dark",
+				});
+			});
 	}
 
 	function changeFormData(e) {
@@ -35,7 +46,7 @@ export default function LoginPage() {
 		<LoginPageContainer>
 			<img src={Logo} alt="Logo do Site TrackIt" />
 			<Form onSubmit={login}>
-			<input
+				<input
 					required
 					name="email"
 					value={loginForm.email}
@@ -55,25 +66,6 @@ export default function LoginPage() {
 
 				<button type="submit">Entrar</button>
 			</Form>
-			{/* <Forms loginForm={loginForm} setLoginForm={setLoginForm}>
-				<input
-					required
-					name="email"
-					value={loginForm.email}
-					type="email"
-					placeholder="Email"
-					onChange={changeFormData}
-				/>
-				<input
-					required
-					name="password"
-					value={loginForm.password}
-					type="password"
-					placeholder="Senha"
-					onChange={changeFormData}
-				/>
-				<button type="submit">Entrar</button>
-			</Forms> */}
 			<LinkText to={"/cadastro"}>Não tem uma conta? Cadastre-se!</LinkText>
 		</LoginPageContainer>
 	);

@@ -7,14 +7,15 @@ export default function TodayPage() {
 	return (
 		<TodayPageContainer>
 			<NavBar />
-			<p>Segunda, 17/05</p>
+			<p>Dia de Hoje - ??/??/????</p>
+			<span>Em breve você poderá ver os hábitos de hoje aqui!</span>
 			<Footer />
 		</TodayPageContainer>
 	);
 }
 
 const TodayPageContainer = styled.div`
-	padding: 105px 20px;
+	padding: 103px 20px 130px 20px;
 	height: 100vh;
 	background-color: #f2f2f2;
 	p {
@@ -22,6 +23,10 @@ const TodayPageContainer = styled.div`
 		font-weight: 400;
 		font-size: 22.976px;
 		line-height: 29px;
-		margin-bottom: 20px;
+		margin-bottom: 35px;
+	}
+	span {
+		font-size: 17.976px;
+		line-height: 22px;
 	}
 `;

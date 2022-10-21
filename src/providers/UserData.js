@@ -11,7 +11,11 @@ export const UserProvider = ({ children }) => {
     password: "",
     token: ""
   });
-  const [userProgress, setUserProgress] = useState(0)
+
+  const [userProgress, setUserProgress] = useState({
+    habitsCount: 0,
+    habitsDone: 0
+  })
 
   return (
     <UserContext.Provider value={{userData, setUserData, userProgress, setUserProgress}}>

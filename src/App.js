@@ -6,6 +6,7 @@ import HabitsPage from "./pages/HabitsPage/HabitsPage";
 import TodayPage from "./pages/TodayPage/TodayPage";
 import HistoryPage from "./pages/HistoryPage/HistoryPage";
 import { UserProvider } from "./providers/UserData";
+import { ToastContainer } from "react-toastify";
 
 export default function App() {
 	return (
@@ -20,6 +21,7 @@ export default function App() {
 					<Route path="/historico" element={<HistoryPage />} />
 				</Routes>
 			</BrowserRouter>
+			<ToastContainer />
 		</UserProvider>
 	);
 }

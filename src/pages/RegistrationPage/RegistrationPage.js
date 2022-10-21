@@ -5,6 +5,8 @@ import styled from "styled-components";
 import { useState } from "react";
 import { BASE_URL } from "../../constants/urls";
 import axios from "axios";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css'
 
 export default function RegistrationPage() {
 	const navigate = useNavigate();
@@ -15,10 +17,30 @@ export default function RegistrationPage() {
 		axios
 			.post(`${BASE_URL}/auth/sign-up`, registerForm)
 			.then((res) => {
-				alert("Cadastro Realizado com Sucesso!");
+				toast.success(`Cadastro criado com sucesso!`, {
+					position: "top-center",
+					autoClose: 2000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: false,
+					draggable: true,
+					progress: undefined,
+					theme: "dark",
+				});
 				navigate("/");
 			})
-			.catch((err) => console.log(err.response.data));
+			.catch((err) => {
+				toast.error('Erro ao cadastrar, tente novamente!', {
+					position: "top-center",
+					autoClose: 3000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "dark",
+					});
+			});
 	}
 
 	function changeFormData(e) {
@@ -30,7 +52,7 @@ export default function RegistrationPage() {
 		<RegistrationPageContainer>
 			<img src={Logo} alt="Logo do Site TrackIt" />
 			<Form onSubmit={register}>
-			<input
+				<input
 					required
 					name="email"
 					value={registerForm.email}
