@@ -18,14 +18,14 @@ const HistoryPageContainer = styled.div`
 	padding: 103px 20px 130px 20px;
 	height: 100vh;
 	background-color: #f2f2f2;
-	p {
+	> p {
 		color: ${baseColor};
 		font-weight: 400;
 		font-size: 22.976px;
 		line-height: 29px;
 		margin-bottom: 35px;
 	}
-	span {
+	> span {
 		font-size: 17.976px;
 		line-height: 22px;
 	}

@@ -14,6 +14,9 @@ export default function HabitsPage() {
 	const { userData } = useContext(UserContext);
 	const [myHabits, setMyHabits] = useState(undefined);
 	const [showNewHabit, setShowNewHabit] = useState(false)
+	const [selectedDays, setSelectedDays] = useState([]);
+	const [habitName, setHabitName] = useState("");
+	const [reloadList, setReloadList] = useState(false)
 
 	useEffect(() => {
 		const config = {
@@ -30,7 +33,7 @@ export default function HabitsPage() {
 			.catch((err) => {
 				console.log(err);
 			});
-	}, [userData.token, showNewHabit, myHabits]);
+	}, [userData.token, showNewHabit, reloadList]);
 
 	return (
 		<HabitsPageContainer>
@@ -42,7 +45,7 @@ export default function HabitsPage() {
 						<AiFillPlusCircle />
 					</button>
 				</MyHabitsNewHabit>
-				{showNewHabit && <NewHabit setShowNewHabit={setShowNewHabit}/>}
+				{showNewHabit && <NewHabit setShowNewHabit={setShowNewHabit} selectedDays={selectedDays} setSelectedDays={setSelectedDays} habitName={habitName} setHabitName={setHabitName}/>}
 				{myHabits === undefined ? (
 					<MyHabitsList>
 						<p>Carregando...</p>
@@ -50,7 +53,7 @@ export default function HabitsPage() {
 				) : (
 					<MyHabitsList>
 						{myHabits.map((hab) => (
-							<Habit key={hab.id} habit={hab} />
+							<Habit key={hab.id} habit={hab} reloadList={reloadList} setReloadList={setReloadList}/>
 							))}
 						{(myHabits === undefined || myHabits.length === 0) &&
 							<p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
@@ -65,8 +68,6 @@ export default function HabitsPage() {
 
 const HabitsPageContainer = styled.div`
 	padding: 90px 20px 130px 20px;
-	height: 100%;
-	background-color: #f2f2f2;
 `;
 
 const MyHabitsNewHabit = styled.div`

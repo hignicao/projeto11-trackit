@@ -31,6 +31,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Lexend Deca', sans-serif;
     line-height: 1;
     color: ${textColor};
+    background-color: #f2f2f2;
   }
   * {
     box-sizing: border-box;

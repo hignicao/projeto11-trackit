@@ -7,13 +7,26 @@ import { BASE_URL } from "../../constants/urls";
 import axios from "axios";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css'
+import { ThreeDots } from  'react-loader-spinner'
 
 export default function RegistrationPage() {
-	const navigate = useNavigate();
 	const [registerForm, setResgisterForm] = useState({ email: "", name: "", image: "", password: "" });
+	const [disabled, setDisabled] = useState(false)
+	const navigate = useNavigate();
+	const loader =
+	<ThreeDots
+		type="Puff"
+		color="#FFFFFF"
+		height={70}
+		width={70}
+		timeout={2000}
+	/>
 
 	function register(e) {
 		e.preventDefault();
+
+		setDisabled(true)
+
 		axios
 			.post(`${BASE_URL}/auth/sign-up`, registerForm)
 			.then((res) => {
@@ -40,6 +53,7 @@ export default function RegistrationPage() {
 					progress: undefined,
 					theme: "dark",
 					});
+				setDisabled(false)
 			});
 	}
 
@@ -54,6 +68,7 @@ export default function RegistrationPage() {
 			<Form onSubmit={register}>
 				<input
 					required
+					disabled={disabled}
 					name="email"
 					value={registerForm.email}
 					type="email"
@@ -63,6 +78,7 @@ export default function RegistrationPage() {
 
 				<input
 					required
+					disabled={disabled}
 					name="password"
 					value={registerForm.password}
 					type="password"
@@ -72,6 +88,7 @@ export default function RegistrationPage() {
 
 				<input
 					required
+					disabled={disabled}
 					name="name"
 					value={registerForm.name}
 					type="text"
@@ -81,6 +98,7 @@ export default function RegistrationPage() {
 
 				<input
 					required
+					disabled={disabled}
 					name="image"
 					value={registerForm.image}
 					type="url"
@@ -88,7 +106,7 @@ export default function RegistrationPage() {
 					onChange={changeFormData}
 				/>
 
-				<button type="submit">Cadastrar</button>
+				<ButtonItem disabled={disabled} type="submit">{(disabled ? loader : "Cadastrar")}</ButtonItem>
 			</Form>
 			<LinkText to={"/"}>Já tem uma conta? Faça login!</LinkText>
 		</RegistrationPageContainer>
@@ -96,10 +114,11 @@ export default function RegistrationPage() {
 }
 
 const RegistrationPageContainer = styled.div`
-	margin: 80px 30px;
+	height: 100vh;
+	background-color: #ffffff;
+	padding: 80px 30px;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
 	align-items: center;
 	gap: 30px;
 	img {
@@ -117,6 +136,17 @@ const Form = styled.form`
 		line-height: 26px;
 	}
 `;
+
+const ButtonItem = styled.button`
+	height: 45px;
+  width: 100%;
+  background-color: ${({disabled}) => disabled ? "#95D9FF" : "#52B6FF"};
+  font-size: 21px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`
 
 const LinkText = styled(Link)`
 	font-size: 13.976px;

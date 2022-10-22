@@ -3,23 +3,48 @@ import { Link, useNavigate } from "react-router-dom";
 import { accentColor } from "../../constants/colors";
 import Logo from "../../assets/images/logo.svg";
 import { BASE_URL } from "../../constants/urls";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { UserContext } from "../../providers/UserData";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+import { ThreeDots } from  'react-loader-spinner'
 
 export default function LoginPage() {
+	const { userData, setUserData } = useContext(UserContext);
 	const [loginForm, setLoginForm] = useState({ email: "", password: "" });
-	const { setUserData } = useContext(UserContext);
+	const [disabled, setDisabled] = useState(false);
 	const navigate = useNavigate();
+	const loader =
+	<ThreeDots
+		type="Puff"
+		color="#FFFFFF"
+		height={70}
+		width={70}
+		timeout={2000}
+  />
+
+	useEffect(() => {
+		const userStorage = localStorage.getItem("userData");
+
+    if(userStorage) {
+      setUserData(JSON.parse(userStorage))
+			navigate("/habitos")
+    } else {
+      setUserData(undefined)
+    }
+
+	} , [])
 
 	function login(e) {
 		e.preventDefault();
 
+		setDisabled(true)
+
 		axios
 			.post(`${BASE_URL}/auth/login`, loginForm)
 			.then((res) => {
+				localStorage.setItem("userData", JSON.stringify(res.data));
 				setUserData(res.data);
 				navigate("/habitos");
 			})
@@ -34,6 +59,7 @@ export default function LoginPage() {
 					progress: undefined,
 					theme: "dark",
 				});
+				setDisabled(false)
 			});
 	}
 
@@ -48,6 +74,7 @@ export default function LoginPage() {
 			<Form onSubmit={login}>
 				<input
 					required
+					disabled={disabled}
 					name="email"
 					value={loginForm.email}
 					type="email"
@@ -57,6 +84,7 @@ export default function LoginPage() {
 
 				<input
 					required
+					disabled={disabled}
 					name="password"
 					value={loginForm.password}
 					type="password"
@@ -64,7 +92,7 @@ export default function LoginPage() {
 					onChange={changeFormData}
 				/>
 
-				<button type="submit">Entrar</button>
+				<ButtonItem disabled={disabled} type="submit">{(disabled ? loader : "Login")}</ButtonItem>
 			</Form>
 			<LinkText to={"/cadastro"}>Não tem uma conta? Cadastre-se!</LinkText>
 		</LoginPageContainer>
@@ -72,10 +100,11 @@ export default function LoginPage() {
 }
 
 const LoginPageContainer = styled.div`
-	margin: 80px 30px;
+	height: 100vh;
+	background-color: #ffffff;
+	padding: 80px 30px;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
 	align-items: center;
 	gap: 30px;
 	img {
@@ -87,12 +116,18 @@ const Form = styled.form`
 	display: flex;
 	flex-direction: column;
 	gap: 5px;
-	button {
-		height: 45px;
-		font-size: 20px;
-		line-height: 26px;
-	}
 `;
+
+const ButtonItem = styled.button`
+	height: 45px;
+  width: 100%;
+  background-color: ${({disabled}) => disabled ? "#95D9FF" : "#52B6FF"};
+  font-size: 21px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`
 
 const LinkText = styled(Link)`
 	font-size: 13.976px;

@@ -5,9 +5,15 @@ import { baseColor } from "../../constants/colors";
 import { UserContext } from "../../providers/UserData";
 
 export default function NavBar() {
-	const { userData } = useContext(UserContext);
-	const [userOptions, setUserOptions] = useState(false);
+	const { userData, setUserData, userOptions, setUserOptions } = useContext(UserContext);
 	const navigate = useNavigate();
+
+	function handleLogout() {
+		localStorage.removeItem("userData")
+		setUserData(undefined)
+		setUserOptions(false)
+		navigate("/")
+	}
 
 	return (
 		<NavContainer>
@@ -16,8 +22,8 @@ export default function NavBar() {
 				<img onClick={() => setUserOptions(!userOptions)} src={userData.image} alt="Usuário" />
 				{userOptions && (
 					<>
-						<p>Olá {userData.name}!</p>
-						<button onClick={() => navigate("/")}>LogOut</button>
+						<span>Olá {userData.name}!</span>
+						<button onClick={handleLogout}>LogOut</button>
 					</>
 				)}
 			</UserOptionsContainer>
@@ -49,10 +55,13 @@ const NavContainer = styled.div`
 const UserOptionsContainer = styled.div`
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: flex-end;
 	gap: 10px;
-	p {
+	span {
 		color: white;
+		@media (max-width: 768px) {
+			max-width: 80px;
+		}
 	}
 	button {
 		padding: 5px 10px;

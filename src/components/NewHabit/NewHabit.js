@@ -7,14 +7,24 @@ import { accentColor } from "../../constants/colors";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+import { ThreeDots } from  'react-loader-spinner'
 
-export default function NewHabit({ setShowNewHabit }) {
+export default function NewHabit({ setShowNewHabit, selectedDays, setSelectedDays, habitName, setHabitName}) {
 	const { userData } = useContext(UserContext);
 	const daysList = ["D", "S", "T", "Q", "Q", "S", "S"];
-	const [selectedDays, setSelectedDays] = useState([]);
-	const [habitName, setHabitName] = useState("");
+	const [disabled, setDisabled] = useState(false);
+	const loader =
+	<ThreeDots
+		type="Puff"
+		color="#FFFFFF"
+		height={50}
+		width={50}
+		timeout={2000}
+	/>
 
 	function createHabit() {
+		setDisabled(true)
+
 		const config = {
 			headers: {
 				Authorization: `Bearer ${userData.token}`,
@@ -40,6 +50,8 @@ export default function NewHabit({ setShowNewHabit }) {
 					theme: "dark",
 				});
         setShowNewHabit(false)
+				setSelectedDays([])
+				setHabitName("")
 			})
 			.catch((err) => {
 				console.log(err);
@@ -53,22 +65,31 @@ export default function NewHabit({ setShowNewHabit }) {
 					progress: undefined,
 					theme: "dark",
 				});
+				setDisabled(false)
 			});
 	}
 
 	return (
 			<NewHabitContainer>
-				<input required name="email" value={habitName} type="text" placeholder="Nome do hábito" onChange={(e) => setHabitName(e.target.value)} />
+				<input
+					disabled={disabled}
+					required
+					name="email"
+					value={habitName}
+					type="text"
+					placeholder="Nome do hábito"
+					onChange={(e) => setHabitName(e.target.value)}
+				/>
 				<DaysList>
 					{daysList.map((day, i) => (
-						<Day disabled={false} key={i} selectedDays={selectedDays} index={i} setSelectedDays={setSelectedDays}>
+						<Day disabled={disabled} key={i} selectedDays={selectedDays} index={i} setSelectedDays={setSelectedDays}>
 							{day}
 						</Day>
 					))}
 				</DaysList>
 				<CancelConfirm>
-					<button onClick={() => setShowNewHabit(false)}>Cancelar</button>
-					<button onClick={createHabit}>Salvar</button>
+					<button disabled={disabled} onClick={() => setShowNewHabit(false)}>Cancelar</button>
+					<ButtonItem disabled={disabled} onClick={() => createHabit()}>{(disabled ? loader : "Salvar")}</ButtonItem>
 				</CancelConfirm>
 			</NewHabitContainer>
 	);
@@ -106,6 +127,16 @@ const CancelConfirm = styled.div`
   }
 `;
 
+const ButtonItem = styled.button`
+	height: 45px;
+  width: 100%;
+  background-color: ${({disabled}) => disabled ? "#95D9FF" : "#52B6FF"};
+  font-size: 21px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`
 
 const DaysList = styled.div`
 	display: flex;

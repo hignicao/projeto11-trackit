@@ -9,7 +9,7 @@ import "react-toastify/dist/ReactToastify.min.css";
 import axios from "axios";
 import { BASE_URL } from "../../constants/urls";
 
-export default function Habit({ habit }) {
+export default function Habit({ habit , reloadList, setReloadList}) {
   const { userData } = useContext(UserContext);
 	const daysList = ["D", "S", "T", "Q", "Q", "S", "S"];
   const [deleteOptions, setDeleteOptions] = useState(false)
@@ -34,6 +34,7 @@ export default function Habit({ habit }) {
 					progress: undefined,
 					theme: "dark",
 				});
+				setReloadList(!reloadList)
 			})
 			.catch((err) => {
 				console.log(err);
