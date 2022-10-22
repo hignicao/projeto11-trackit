@@ -9,13 +9,13 @@ import "react-toastify/dist/ReactToastify.min.css";
 import axios from "axios";
 import { BASE_URL } from "../../constants/urls";
 
-export default function Habit({ habit , reloadList, setReloadList}) {
-  const { userData } = useContext(UserContext);
+export default function Habit({ habit, reloadList, setReloadList }) {
+	const { userData } = useContext(UserContext);
 	const daysList = ["D", "S", "T", "Q", "Q", "S", "S"];
-  const [deleteOptions, setDeleteOptions] = useState(false)
+	const [deleteOptions, setDeleteOptions] = useState(false);
 
-  function deleteHabit() {
-    const config = {
+	function deleteHabit() {
+		const config = {
 			headers: {
 				Authorization: `Bearer ${userData.token}`,
 			},
@@ -24,7 +24,7 @@ export default function Habit({ habit , reloadList, setReloadList}) {
 		axios
 			.delete(`${BASE_URL}/habits/${habit.id}`, config)
 			.then((res) => {
-        toast.info(`Hábito ${habit.name} deletado com sucesso!`, {
+				toast.info(`Hábito ${habit.name} deletado com sucesso!`, {
 					position: "top-center",
 					autoClose: 1000,
 					hideProgressBar: true,
@@ -34,7 +34,7 @@ export default function Habit({ habit , reloadList, setReloadList}) {
 					progress: undefined,
 					theme: "dark",
 				});
-				setReloadList(!reloadList)
+				setReloadList(!reloadList);
 			})
 			.catch((err) => {
 				console.log(err);
@@ -49,26 +49,26 @@ export default function Habit({ habit , reloadList, setReloadList}) {
 					theme: "dark",
 				});
 			});
-  }
+	}
 
 	return (
 		<HabitContainer>
 			<NameDelete>
 				<p>{habit.name}</p>
-        {deleteOptions ? (
-          <DeleteOptionsContainer>
-            <button onClick={() => setDeleteOptions(false)}>Cancelar</button>
-            <button onClick={deleteHabit} >Confirmar</button>
-          </DeleteOptionsContainer>
-        ) : (
-          <button onClick={() => setDeleteOptions(true)}>
-            <HiOutlineTrash />
-          </button>
-        )}
+				{deleteOptions ? (
+					<DeleteOptionsContainer>
+						<button onClick={() => setDeleteOptions(false)}>Cancelar</button>
+						<button onClick={deleteHabit}>Confirmar</button>
+					</DeleteOptionsContainer>
+				) : (
+					<button onClick={() => setDeleteOptions(true)}>
+						<HiOutlineTrash />
+					</button>
+				)}
 			</NameDelete>
 			<DaysContainer>
 				{daysList.map((day, i) => (
-          <Day disabled={true} key={i} selectedDays={habit.days} index={i}>
+					<Day disabled={true} key={i} selectedDays={habit.days} index={i}>
 						{day}
 					</Day>
 				))}
@@ -90,7 +90,7 @@ const DaysContainer = styled.div`
 `;
 
 const NameDelete = styled.div`
-  height: 25px;
+	height: 25px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -108,16 +108,16 @@ const NameDelete = styled.div`
 `;
 
 const DeleteOptionsContainer = styled.div`
-  display: flex;
-  gap: 5px;
-  button:nth-child(1) {
-    border: none;
-	  background: none;
-	  color: ${accentColor};
-    font-size: 13px;
-  }
-  button:nth-child(2) {
-    font-size: 13px;
-    height: 24px;
-  }
-`
+	display: flex;
+	gap: 5px;
+	button:nth-child(1) {
+		border: none;
+		background: none;
+		color: ${accentColor};
+		font-size: 13px;
+	}
+	button:nth-child(2) {
+		font-size: 13px;
+		height: 24px;
+	}
+`;

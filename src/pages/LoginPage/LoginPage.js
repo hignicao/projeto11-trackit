@@ -11,7 +11,7 @@ import "react-toastify/dist/ReactToastify.min.css";
 import { ThreeDots } from  'react-loader-spinner'
 
 export default function LoginPage() {
-	const { userData, setUserData } = useContext(UserContext);
+	const { setUserData } = useContext(UserContext);
 	const [loginForm, setLoginForm] = useState({ email: "", password: "" });
 	const [disabled, setDisabled] = useState(false);
 	const navigate = useNavigate();
@@ -29,7 +29,7 @@ export default function LoginPage() {
 
     if(userStorage) {
       setUserData(JSON.parse(userStorage))
-			navigate("/habitos")
+			navigate("/hoje")
     } else {
       setUserData(undefined)
     }
@@ -46,7 +46,7 @@ export default function LoginPage() {
 			.then((res) => {
 				localStorage.setItem("userData", JSON.stringify(res.data));
 				setUserData(res.data);
-				navigate("/habitos");
+				navigate("/hoje");
 			})
 			.catch((err) => {
 				toast.error("Erro ao fazer login, confira os dados e tente novamente!", {

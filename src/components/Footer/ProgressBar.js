@@ -2,11 +2,11 @@ import styled from "styled-components";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { accentColor } from "../../constants/colors";
 
-export default function ProgressBar({ percentage }) {
+export default function ProgressBar({ userProgress }) {
 	return (
 		<ProgressBarItem
-			value={percentage}
-			maxValue={1}
+			value={userProgress.habitsDone}
+			maxValue={userProgress.habitsTotal}
 			text={`Hoje`}
 			background
 			backgroundPadding={6}

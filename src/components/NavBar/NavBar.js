@@ -1,6 +1,6 @@
-import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { baseColor } from "../../constants/colors";
 import { UserContext } from "../../providers/UserData";
 
@@ -9,10 +9,10 @@ export default function NavBar() {
 	const navigate = useNavigate();
 
 	function handleLogout() {
-		localStorage.removeItem("userData")
-		setUserData(undefined)
-		setUserOptions(false)
-		navigate("/")
+		localStorage.removeItem("userData");
+		setUserData(undefined);
+		setUserOptions(false);
+		navigate("/");
 	}
 
 	return (

@@ -4,14 +4,17 @@ import { accentColor } from "../../constants/colors";
 
 import "react-circular-progressbar/dist/styles.css";
 import ProgressBar from "./ProgressBar";
+import { useContext } from "react";
+import { UserContext } from "../../providers/UserData";
 
 export default function Footer() {
-	const percentage = 0.4; //temporário
+	const { userProgress } = useContext(UserContext);
+
 	return (
 		<FooterContainer>
 			<LinkText to={"/habitos"}>Hábitos</LinkText>
 			<LinkProgressBar to={"/hoje"}>
-				<ProgressBar percentage={percentage} />
+				<ProgressBar userProgress={userProgress} />
 			</LinkProgressBar>
 			<LinkText to={"/historico"}>Histórico</LinkText>
 		</FooterContainer>
