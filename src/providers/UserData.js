@@ -3,7 +3,7 @@ import { createContext, useState } from "react";
 export const UserContext = createContext({});
 
 export const UserProvider = ({ children }) => {
-	const [userData, setUserData] = useState(undefined);
+	const [userData, setUserData] = useState(localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")) : undefined);
 
 	const [userProgress, setUserProgress] = useState({
 		habitsTotal: 0,

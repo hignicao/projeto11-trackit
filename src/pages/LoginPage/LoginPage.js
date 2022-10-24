@@ -11,7 +11,7 @@ import "react-toastify/dist/ReactToastify.min.css";
 import { ThreeDots } from  'react-loader-spinner'
 
 export default function LoginPage() {
-	const { setUserData } = useContext(UserContext);
+	const { userData, setUserData } = useContext(UserContext);
 	const [loginForm, setLoginForm] = useState({ email: "", password: "" });
 	const [disabled, setDisabled] = useState(false);
 	const navigate = useNavigate();
@@ -25,15 +25,11 @@ export default function LoginPage() {
   />
 
 	useEffect(() => {
-		const userStorage = localStorage.getItem("userData");
-
-    if(userStorage) {
-      setUserData(JSON.parse(userStorage))
+    if(userData) {
 			navigate("/hoje")
     } else {
       setUserData(undefined)
     }
-
 	} , [])
 
 	function login(e) {
