@@ -40,7 +40,7 @@ export default function TodayHabit({ habit, reloadList, setReloadList }) {
 	}
 
 	return (
-		<TodayHabitContainer>
+		<TodayHabitContainer data-identifier="today-infos">
 			<NameSequence>
 				<h3>{name}</h3>
 				<p>
@@ -51,7 +51,7 @@ export default function TodayHabit({ habit, reloadList, setReloadList }) {
 				</p>
 			</NameSequence>
 			<IconContainer done={done}>
-				<BsFillCalendarCheckFill onClick={checkHabit} />
+				<BsFillCalendarCheckFill data-identifier="done-habit-btn" onClick={checkHabit} />
 			</IconContainer>
 		</TodayHabitContainer>
 	);

@@ -74,6 +74,7 @@ export default function RegistrationPage() {
 					type="email"
 					placeholder="Email"
 					onChange={changeFormData}
+					data-identifier="input-email"
 				/>
 
 				<input
@@ -84,6 +85,7 @@ export default function RegistrationPage() {
 					type="password"
 					placeholder="Senha"
 					onChange={changeFormData}
+					data-identifier="input-password"
 				/>
 
 				<input
@@ -94,6 +96,7 @@ export default function RegistrationPage() {
 					type="text"
 					placeholder="Nome"
 					onChange={changeFormData}
+					data-identifier="input-name"
 				/>
 
 				<input
@@ -104,11 +107,12 @@ export default function RegistrationPage() {
 					type="url"
 					placeholder="Foto"
 					onChange={changeFormData}
+					data-identifier="input-photo"
 				/>
 
 				<ButtonItem disabled={disabled} type="submit">{(disabled ? loader : "Cadastrar")}</ButtonItem>
 			</Form>
-			<LinkText to={"/"}>Já tem uma conta? Faça login!</LinkText>
+			<LinkText data-identifier="back-to-login-action" to={"/"}>Já tem uma conta? Faça login!</LinkText>
 		</RegistrationPageContainer>
 	);
 }

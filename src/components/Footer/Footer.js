@@ -12,11 +12,11 @@ export default function Footer() {
 
 	return (
 		<FooterContainer>
-			<LinkText to={"/habitos"}>Hábitos</LinkText>
+			<LinkText data-identifier="habit-page-action" to={"/habitos"}>Hábitos</LinkText>
 			<LinkProgressBar to={"/hoje"}>
 				<ProgressBar userProgress={userProgress} />
 			</LinkProgressBar>
-			<LinkText to={"/historico"}>Histórico</LinkText>
+			<LinkText data-identifier="historic-page-action" to={"/historico"}>Histórico</LinkText>
 		</FooterContainer>
 	);
 }

@@ -51,7 +51,7 @@ export default function HabitsPage() {
 			<NavBar />
 			<MyHabitsNewHabit>
 				<p>Meus hábitos</p>
-				<button onClick={() => setShowNewHabit(true)}>
+				<button data-identifier="create-habit-btn" onClick={() => setShowNewHabit(true)}>
 					<AiFillPlusCircle />
 				</button>
 			</MyHabitsNewHabit>
@@ -90,7 +90,7 @@ export default function HabitsPage() {
 						/>
 					))}
 					{(myHabits === undefined || myHabits.length === 0) &&
-						<p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
+						<p data-identifier="no-habit-message">Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
 					}
 				</MyHabitsList>
 			)}

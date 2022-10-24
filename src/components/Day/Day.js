@@ -14,6 +14,7 @@ export default function Day({ children, selectedDays, index, setSelectedDays, di
 
 	return (
 		<DayElement
+			data-identifier="week-day-btn"
 			disabled={disabled}
 			onClick={() => selectDay(index)}
 			color={selectedDays.indexOf(index) !== -1 ? "white" : "#CFCFCF"}

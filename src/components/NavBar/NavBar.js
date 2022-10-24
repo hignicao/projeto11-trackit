@@ -19,7 +19,7 @@ export default function NavBar() {
 		<NavContainer>
 			<h2>TrackIt</h2>
 			<UserOptionsContainer>
-				<img onClick={() => setUserOptions(!userOptions)} src={userData.image} alt="Usuário" />
+				<img data-identifier="avatar" onClick={() => setUserOptions(!userOptions)} src={userData.image} alt="Usuário" />
 				{userOptions && (
 					<>
 						<span>Olá {userData.name}!</span>

@@ -54,14 +54,14 @@ export default function Habit({ habit, reloadList, setReloadList }) {
 	return (
 		<HabitContainer>
 			<NameDelete>
-				<p>{habit.name}</p>
+				<p data-identifier="habit-name" >{habit.name}</p>
 				{deleteOptions ? (
 					<DeleteOptionsContainer>
 						<button onClick={() => setDeleteOptions(false)}>Cancelar</button>
 						<button onClick={deleteHabit}>Confirmar</button>
 					</DeleteOptionsContainer>
 				) : (
-					<button onClick={() => setDeleteOptions(true)}>
+					<button data-identifier="delete-habit-btn" onClick={() => setDeleteOptions(true)}>
 						<HiOutlineTrash />
 					</button>
 				)}

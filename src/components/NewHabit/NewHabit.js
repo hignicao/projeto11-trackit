@@ -72,6 +72,7 @@ export default function NewHabit({ setShowNewHabit, selectedDays, setSelectedDay
 				type="text"
 				placeholder="Nome do hábito"
 				onChange={(e) => setHabitName(e.target.value)}
+				data-identifier="input-habit-name"
 			/>
 			<DaysList>
 				{daysList.map((day, i) => (
@@ -81,10 +82,10 @@ export default function NewHabit({ setShowNewHabit, selectedDays, setSelectedDay
 				))}
 			</DaysList>
 			<CancelConfirm>
-				<button disabled={disabled} onClick={() => setShowNewHabit(false)}>
+				<button data-identifier="cancel-habit-create-btn" disabled={disabled} onClick={() => setShowNewHabit(false)}>
 					Cancelar
 				</button>
-				<ButtonItem disabled={disabled} onClick={() => createHabit()}>
+				<ButtonItem data-identifier="save-habit-create-btn" disabled={disabled} onClick={() => createHabit()}>
 					{disabled ? loader : "Salvar"}
 				</ButtonItem>
 			</CancelConfirm>

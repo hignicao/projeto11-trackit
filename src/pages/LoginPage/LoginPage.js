@@ -80,6 +80,7 @@ export default function LoginPage() {
 					type="email"
 					placeholder="Email"
 					onChange={changeFormData}
+					data-identifier="input-email"
 				/>
 
 				<input
@@ -90,11 +91,12 @@ export default function LoginPage() {
 					type="password"
 					placeholder="Senha"
 					onChange={changeFormData}
+					data-identifier="input-password"
 				/>
 
-				<ButtonItem disabled={disabled} type="submit">{(disabled ? loader : "Login")}</ButtonItem>
+				<ButtonItem data-identifier="login-btn" disabled={disabled} type="submit">{(disabled ? loader : "Login")}</ButtonItem>
 			</Form>
-			<LinkText to={"/cadastro"}>Não tem uma conta? Cadastre-se!</LinkText>
+			<LinkText data-identifier="sign-up-action" to={"/cadastro"}>Não tem uma conta? Cadastre-se!</LinkText>
 		</LoginPageContainer>
 	);
 }
